@@ -1,33 +1,21 @@
 import { Link } from 'react-router-dom';
+import { navRoutes } from './NavBarRoutes';
 
 export const NavBar: React.FC = () => {
     return (
         <nav className="navbar is-danger is-small custom_nav">
             <div className="navbar-brand">
-                <div className="navbar-item">
-                    <h1> Rental a Car</h1>
-                </div>
+                <Link to="/" className="navbar-item title is-6">
+                    Rent a Car
+                </Link>
             </div>
             <div className="navbar-menu">
                 <div className="navbar-start">
-                    <Link to="/users" className="navbar-item">
-                        Gestionar Usuarios
-                    </Link>
-                    <Link to="/user/add" className="navbar-item">
-                        Nuevo Usuario
-                    </Link>
-                    <Link to="/reservations" className="navbar-item">
-                        Gestionar Reservas
-                    </Link>
-                    <Link to="/reservation/add" className="navbar-item">
-                        Nueva Reserva
-                    </Link>
-                    <Link to="/cars" className="navbar-item">
-                        Gestionar Auto
-                    </Link>
-                    <Link to="/cars/add" className="navbar-item">
-                        Agregar Auto
-                    </Link>
+                    {navRoutes.map(({ to, name }) => (
+                        <Link to={to} key={to} className="navbar-item">
+                            {name}
+                        </Link>
+                    ))}
                 </div>
             </div>
         </nav>
