@@ -1,4 +1,4 @@
-import { ListCars, ManageCars, FormCar } from '../components/Cars';
+import { FormCar, ListCars } from '../pages';
 
 export interface RoutesProps {
     path: string;
@@ -8,11 +8,11 @@ export interface RoutesProps {
 export const routes: RoutesProps[] = [
     {
         path: '/',
-        Component: ListCars,
+        Component: FormCar,
     },
     {
         path: 'cars/edit',
-        Component: ManageCars,
+        Component: ListCars,
     },
     {
         path: 'cars/edit/:id_car',
