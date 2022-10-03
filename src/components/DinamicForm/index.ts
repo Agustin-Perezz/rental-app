@@ -1,0 +1,1 @@
+export { DinamicForm } from './DinamicForm';

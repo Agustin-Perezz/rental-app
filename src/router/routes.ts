@@ -1,4 +1,5 @@
-import { FormCar, ListCars } from '../pages';
+import { FormCar } from '../pages/Cars/Components/FormCar';
+import { ListCars } from '../pages/Cars/Components/ListCars';
 
 export interface RoutesProps {
     path: string;

@@ -12,3 +12,18 @@
     object-fit: contain;
     cursor: pointer;
 }
+
+.select_custom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.title_custom {
+    margin-bottom: 0 !important;
+}

@@ -1,0 +1,1 @@
+export { inputsCarFields } from './inputsCarFields';

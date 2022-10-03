@@ -1,0 +1,1 @@
+export { filterInputsData } from './filterInputsData';
