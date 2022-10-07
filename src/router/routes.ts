@@ -1,5 +1,5 @@
-import { FormCar } from '../pages/Cars/Components/FormCar';
 import { ListCars } from '../pages/Cars/Components/ListCars';
+import { NewCar } from '../pages/Cars/Components/NewCar';
 
 export interface RoutesProps {
     path: string;
@@ -8,19 +8,19 @@ export interface RoutesProps {
 
 export const routes: RoutesProps[] = [
     {
-        path: '/',
-        Component: FormCar,
-    },
-    {
         path: 'cars/edit',
         Component: ListCars,
     },
+    // {
+    //     path: 'cars/edit',
+    //     Component: ListCars,
+    // },
     {
         path: 'cars/edit/:id_car',
-        Component: FormCar,
+        Component: NewCar,
     },
     {
         path: 'cars/add',
-        Component: FormCar,
+        Component: NewCar,
     },
 ];

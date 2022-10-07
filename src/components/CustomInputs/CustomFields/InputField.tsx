@@ -9,7 +9,7 @@ interface Props {
     [x: string]: any;
 }
 
-export const InputField: React.FC<Props> = ({ label, ...props }) => {
+export const InputField: React.FC<Props> = ({ label, icon, ...props }) => {
     const [field, meta] = useField({ ...props });
 
     return (
@@ -24,7 +24,7 @@ export const InputField: React.FC<Props> = ({ label, ...props }) => {
                     {...props}
                 />
                 <span className="icon is-small is-left">
-                    <i className={props.icon}></i>
+                    <i className={icon}></i>
                 </span>
                 {meta.touched && meta.error && (
                     <span className="icon is-small is-right">

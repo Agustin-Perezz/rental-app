@@ -1,32 +1,23 @@
-import { InputModel, radioGroupModel, Validation } from '../models/inputModel';
+import { InputModel, Validation } from '../models/inputModel';
 import * as Yup from 'yup';
 
-interface Props {
-    groupInputs: InputModel[];
-}
-
-interface FieldsProps {
+export interface FieldsProps {
     [key: string]: any;
 }
+interface Props {
+    groupInputs: InputModel[];
+    alternativeInititalValues?: FieldsProps;
+}
 
-export const filterInputsData = ({ groupInputs }: Props) => {
-    const initialValues: FieldsProps = {};
+export const filterInputsData = ({
+    groupInputs,
+    alternativeInititalValues,
+}: Props): FieldsProps => {
+    const initialFormValues: FieldsProps = {};
     const requiredFields: FieldsProps = {};
 
-    inputsFieldBuilder(groupInputs, initialValues, requiredFields);
-
-    const validationScheme = Yup.object({ ...requiredFields });
-
-    return { initialValues, validationScheme };
-};
-
-const inputsFieldBuilder = (
-    inputGroup: InputModel[],
-    initialValues: FieldsProps,
-    requiredFields: FieldsProps
-) => {
-    for (const input of inputGroup) {
-        initialValues[input.name] = input.value;
+    for (const input of groupInputs) {
+        initialFormValues[input.name] = input.value;
 
         if (!input.validations) continue;
 
@@ -34,6 +25,10 @@ const inputsFieldBuilder = (
 
         requiredFields[input.name] = schema;
     }
+
+    const validationSchema = Yup.object({ ...requiredFields });
+
+    return { initialFormValues, validationSchema };
 };
 
 const schemaBuilder = (inputValidations: Validation[]) => {

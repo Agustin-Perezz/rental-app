@@ -5,7 +5,13 @@ import { CarModel } from '../../../models/Cars';
 export interface CarsProps {
     isLoading: boolean;
     cars: CarModel[] | [];
+    searchedCar?: CarModel;
 }
+
+type UpdateCarProps = {
+    newData: CarModel;
+    idCar: number;
+};
 
 const initialState: CarsProps = {
     cars: [],
@@ -23,7 +29,37 @@ export const carsSlice = createSlice({
             state.isLoading = false;
             state.cars = action.payload;
         },
+        setNewCar: (state, action: PayloadAction<CarModel>) => {
+            state.cars = [...state.cars, { ...action.payload }];
+        },
+        deleteCarById: (state, action: PayloadAction<number>) => {
+            const filteredCars = state.cars.filter(
+                (car) => car.id !== action.payload
+            );
+            state.cars = filteredCars;
+        },
+        setNewInformationCar: (
+            state,
+            { payload: { idCar, newData } }: PayloadAction<UpdateCarProps>
+        ) => {
+            const indexOldCar = state.cars.findIndex((car) => car.id === idCar);
+            state.cars[indexOldCar] = { ...newData };
+        },
+        setSearchedCar: (state, action: PayloadAction<CarModel>) => {
+            state.searchedCar = action.payload;
+        },
+        cleanSearchedCar: (state) => {
+            state.searchedCar = undefined;
+        },
     },
 });
 
-export const { startLoadingCars, setCars } = carsSlice.actions;
+export const {
+    startLoadingCars,
+    setCars,
+    setNewCar,
+    deleteCarById,
+    setSearchedCar,
+    cleanSearchedCar,
+    setNewInformationCar,
+} = carsSlice.actions;

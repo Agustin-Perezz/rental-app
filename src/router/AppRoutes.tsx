@@ -23,7 +23,10 @@ export const AppRoutes: React.FC = () => {
                 <Route path="reservations" />
                 <Route path="reservation/add" />
                 <Route path="reservation/:id_reservation" /> */}
-                <Route path="/*" element={<Navigate replace to="/" />} />
+                <Route
+                    path="/*"
+                    element={<Navigate replace to="/cars/edit" />}
+                />
             </Routes>
         </BrowserRouter>
     );

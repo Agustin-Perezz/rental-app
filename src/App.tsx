@@ -1,7 +1,12 @@
+import { FormProvider } from './context';
 import { AppRoutes } from './router';
 
 function App() {
-    return <AppRoutes />;
+    return (
+        <FormProvider>
+            <AppRoutes />
+        </FormProvider>
+    );
 }
 
 export default App;
