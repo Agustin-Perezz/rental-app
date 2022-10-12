@@ -1,10 +1,11 @@
 import { CarModel } from '../../../models/Cars';
 
-import edit from '../../../assets/images/edit.png';
-import trash from '../../../assets/images/trash-bin.png';
 import { useAppDispatch } from '../../../store/hooks';
 import { deleteCar } from '../../../store/slices/Cars';
 import { useNavigate } from 'react-router-dom';
+
+import edit from '../../../assets/images/edit.png';
+import trash from '../../../assets/images/trash.png';
 
 interface Props {
     car: CarModel;
@@ -21,25 +22,29 @@ export const Car: React.FC<Props> = ({ car }) => {
             <td>{car.year}</td>
             <td>{car.kilometers}</td>
             <td>{car.color}</td>
-            <td>
-                <div className="td_custom">
-                    {car.air_conditioning ? 'True' : 'False'}
-                    <img
-                        src={edit}
-                        alt="edit"
-                        className="custom_img"
-                        onClick={() => navigate(`/cars/edit/${car.id}`)}
-                    />
-                    <img
-                        src={trash}
-                        alt="delet"
-                        className="custom_img"
-                        onClick={() => dispatch(deleteCar(car.id))}
-                    />
-                </div>
-            </td>
+            <td>{car.unit_price}</td>
             <td>{car.passengers}</td>
             <td>{car.type_tranmision}</td>
+            <td>{car.air_conditioning ? 'True' : 'False'}</td>
+            <td>
+                <div className="td_custom">
+                    <span className="icon">
+                        <img
+                            src={edit}
+                            alt="edit"
+                            className="custom_img"
+                            onClick={() => navigate(`/cars/edit/${car.id}`)}
+                        />
+                    </span>
+                    <span className="icon">
+                        <img
+                            src={trash}
+                            alt="delet"
+                            onClick={() => dispatch(deleteCar(car.id))}
+                        />
+                    </span>
+                </div>
+            </td>
         </tr>
     );
 };

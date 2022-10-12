@@ -8,6 +8,10 @@
     vertical-align: middle !important;
 }
 
+.td_custom > span {
+    cursor: pointer;
+}
+
 .custom_img {
     object-fit: contain;
     cursor: pointer;

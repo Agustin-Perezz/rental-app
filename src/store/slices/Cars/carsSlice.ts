@@ -4,7 +4,7 @@ import { CarModel } from '../../../models/Cars';
 
 export interface CarsProps {
     isLoading: boolean;
-    cars: CarModel[] | [];
+    cars: CarModel[];
     searchedCar?: CarModel;
 }
 

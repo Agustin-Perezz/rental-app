@@ -13,7 +13,11 @@ export const InputField: React.FC<Props> = ({ label, icon, ...props }) => {
     const [field, meta] = useField({ ...props });
 
     return (
-        <div className="column is-half field">
+        <div
+            className={`column  field ${
+                field.name === 'passengers' ? 'is-full' : 'is-half'
+            }`}
+        >
             <label className="label"> {label} </label>
             <div className="control has-icons-left has-icons-right">
                 <input

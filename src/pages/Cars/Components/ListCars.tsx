@@ -17,6 +17,7 @@ export const ListCars: React.FC = () => {
                         <th>Year</th>
                         <th>Kilometers</th>
                         <th>Color</th>
+                        <th>Unit.P</th>
                         <th>Air Conditioning</th>
                         <th>Passangers</th>
                         <th>Type Transmision</th>

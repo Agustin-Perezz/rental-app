@@ -1,37 +1,43 @@
+import React from 'react';
 import { Form, Formik } from 'formik';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { InputBuilder } from '../../../components/CustomInputs/InputBuilder';
+import { InputBuilder } from '../../../components/CustomInputs';
 import { filterInputsData } from '../../../helpers';
 import { InputModel } from '../../../models/inputModel';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { createCar, findById, updateCar } from '../../../store/slices/Cars';
-import { cleanSearchedCar } from '../../../store/slices/Cars/carsSlice';
+import {
+    createUser,
+    findUserById,
+    updateUser,
+} from '../../../store/slices/Users';
+import { useParams } from 'react-router-dom';
+import { cleanSearchedUser } from '../../../store/slices/Users/userSlice';
 
 interface Props {
     groupInputs: InputModel[];
 }
 
-export const FormCar: React.FC<Props> = ({ groupInputs }) => {
+export const FormUser: React.FC<Props> = ({ groupInputs }) => {
     const { initialFormValues, validationSchema } = filterInputsData({
         groupInputs,
     });
 
-    const { searchedCar } = useAppSelector((state) => state.cars);
+    const { searchedUser } = useAppSelector((state) => state.users);
 
     const dispatch = useAppDispatch();
-    const { id_car } = useParams();
-    useEffect(() => {
-        id_car ? dispatch(findById(id_car)) : dispatch(cleanSearchedCar());
-    }, [id_car]);
+    const { id_user } = useParams();
+    React.useEffect(() => {
+        id_user
+            ? dispatch(findUserById(id_user))
+            : dispatch(cleanSearchedUser());
+    }, [id_user]);
 
     return (
         <Formik
-            initialValues={searchedCar || initialFormValues}
+            initialValues={searchedUser || initialFormValues}
             onSubmit={(values) => {
-                !id_car
-                    ? dispatch(createCar({ ...values }))
-                    : dispatch(updateCar(values, id_car));
+                !searchedUser
+                    ? dispatch(createUser(values))
+                    : dispatch(updateUser(values, id_user!));
             }}
             validationSchema={validationSchema}
             enableReinitialize
@@ -42,10 +48,10 @@ export const FormCar: React.FC<Props> = ({ groupInputs }) => {
                     <button
                         type="submit"
                         className={`button ${
-                            !searchedCar ? 'is-success' : 'is-info'
+                            !searchedUser ? 'is-success' : 'is-info'
                         } is-fullwidth mx-auto`}
                     >
-                        {searchedCar ? 'Update' : 'Save'}
+                        {searchedUser ? 'Update' : 'Save'}
                     </button>
                 </Form>
             )}

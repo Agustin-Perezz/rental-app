@@ -66,6 +66,19 @@ export const inputsCarFields = [
     },
     {
         type: 'input',
+        label: 'Unit Price',
+        name: 'unit_price',
+        value: '',
+        placeholder: 'Type the price of the car in $',
+        icon: 'fas fa-money-bill',
+        validations: [
+            {
+                type: 'required',
+            },
+        ],
+    },
+    {
+        type: 'input',
         label: 'Passangers',
         name: 'passengers',
         value: '',
