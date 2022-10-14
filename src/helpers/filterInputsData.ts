@@ -6,13 +6,9 @@ export interface FieldsProps {
 }
 interface Props {
     groupInputs: InputModel[];
-    alternativeInititalValues?: FieldsProps;
 }
 
-export const filterInputsData = ({
-    groupInputs,
-    alternativeInititalValues,
-}: Props): FieldsProps => {
+export const filterInputsData = ({ groupInputs }: Props): FieldsProps => {
     const initialFormValues: FieldsProps = {};
     const requiredFields: FieldsProps = {};
 

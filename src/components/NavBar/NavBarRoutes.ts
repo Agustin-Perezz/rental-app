@@ -5,6 +5,10 @@ interface NavBarProps {
 
 export const navRoutes: NavBarProps[] = [
     {
+        to: 'reservations/add',
+        name: 'New Reservation',
+    },
+    {
         to: 'cars/edit',
         name: 'Manage Cars',
     },

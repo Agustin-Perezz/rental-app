@@ -19,9 +19,13 @@ export const InputField: React.FC<Props> = ({ label, icon, ...props }) => {
             }`}
         >
             <label className="label"> {label} </label>
-            <div className="control has-icons-left has-icons-right">
+            <div
+                className={`control  has-icons-right ${
+                    icon && 'has-icons-left'
+                }`}
+            >
                 <input
-                    className={`${props.type} ${
+                    className={`input ${
                         meta.touched && meta.error && 'is-danger'
                     }`}
                     {...field}

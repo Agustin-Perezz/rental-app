@@ -9,7 +9,11 @@ export const InputBuilder: React.FC<Props> = ({ inputFields }) => {
     return (
         <>
             {inputFields.map((data) => {
-                if (data.type === 'input' || data.type === 'email') {
+                if (
+                    data.type === 'input' ||
+                    data.type === 'email' ||
+                    data.type === 'date'
+                ) {
                     return (
                         <InputField
                             label={data.label}
