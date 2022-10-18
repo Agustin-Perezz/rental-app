@@ -23,8 +23,8 @@ export const inputsReservationFields = [
     },
     {
         label: 'List Cars:',
-        value: 'test',
-        name: 'cars',
+        value: '1',
+        name: 'fk_car',
         type: 'select',
         options: [
             {
@@ -40,8 +40,8 @@ export const inputsReservationFields = [
     },
     {
         label: 'List Users:',
-        value: 'ashe',
-        name: 'users',
+        value: '1',
+        name: 'fk_user',
         type: 'select',
         options: [
             {
@@ -55,6 +55,27 @@ export const inputsReservationFields = [
             },
         ],
     },
+    // {
+    //     label: 'Test select',
+    //     value: '1',
+    //     name: 'test',
+    //     type: 'select',
+    //     options: [
+    //         {
+    //             value: 'yes',
+    //             label: 'Yes',
+    //         },
+    //         {
+    //             value: 'not',
+    //             label: 'Not',
+    //         },
+    //     ],
+    //     validations: [
+    //         {
+    //             type: 'required',
+    //         },
+    //     ],
+    // },
     {
         label: 'Payment the rent at the moment',
         value: 'yes',
@@ -79,7 +100,7 @@ export const inputsReservationFields = [
     {
         label: 'Payment Methods',
         value: 'efective',
-        name: 'payment_methods',
+        name: 'payment_method',
         type: 'select',
         options: [
             {

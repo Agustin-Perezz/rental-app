@@ -5,7 +5,7 @@ interface Props {
     label: string;
     name: string;
     placeholder?: string;
-    value: string;
+    value: string | unknown[];
     type?: 'text' | 'email' | 'select';
     options: OptionsModel[];
     [x: string]: any;

@@ -43,3 +43,7 @@ input:-webkit-autofill:active {
 .title_custom {
     margin-bottom: 0 !important;
 }
+
+.icon:hover {
+    opacity: 0.6;
+}

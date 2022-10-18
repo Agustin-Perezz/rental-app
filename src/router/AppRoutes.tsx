@@ -10,23 +10,7 @@ export const AppRoutes: React.FC = () => {
                 {routes.map(({ path, Component }) => (
                     <Route key={path} path={path} element={<Component />} />
                 ))}
-                {/* <Route path="/" element={<h2>all-cars</h2>} />
-                <Route path="cars/edit" element={<h2>manage-cars</h2>} />
-                <Route
-                    path="cars/edit/:id_car"
-                    element={<h2>page-car-crud</h2>}
-                /> */}
-                {/* <Route path="users" />
-                <Route path="user/:id_user" />
-                <Route path="user/add" element={<h3>add - user</h3>} />
-                <Route path="cars" />
-                <Route path="reservations" />
-                <Route path="reservation/add" />
-                <Route path="reservation/:id_reservation" /> */}
-                <Route
-                    path="/*"
-                    element={<Navigate replace to="/cars/edit" />}
-                />
+                <Route path="/*" element={<Navigate replace to="/" />} />
             </Routes>
         </BrowserRouter>
     );

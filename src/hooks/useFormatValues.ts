@@ -34,7 +34,9 @@ export const useFormatValues = ({ groupInputs }: Props) => {
             };
         });
 
+        // groupInputs[2].value = carPreview[0].value;
         groupInputs[2].options = carPreview;
+        // groupInputs[3].value = userPreview[0].value;
         groupInputs[3].options = userPreview;
     }, []);
 };

@@ -4,6 +4,8 @@ import { InputBuilder } from '../../../components/CustomInputs';
 import { filterInputsData } from '../../../helpers';
 import { InputModel } from '../../../models/inputModel';
 import { useFormatValues } from '../../../hooks';
+import { useAppDispatch } from '../../../store/hooks';
+import { createReservation } from '../../../store/slices/Reservations';
 
 interface Props {
     groupInputs: InputModel[];
@@ -11,10 +13,11 @@ interface Props {
 
 export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
     useFormatValues({ groupInputs });
-
     const { initialFormValues, validationSchema } = filterInputsData({
         groupInputs,
     });
+
+    const disptach = useAppDispatch();
 
     return (
         <Formik
@@ -22,8 +25,7 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
             onSubmit={(values) => {
                 // !id_car
                 //     ? dispatch(createCar({ ...values }))
-                //     : dispatch(updateCar(values, id_car));
-                console.log(values);
+                disptach(createReservation(values));
             }}
             validationSchema={validationSchema}
             enableReinitialize
@@ -31,7 +33,6 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
             {() => (
                 <Form className="is-flex is-flex-wrap-wrap">
                     <InputBuilder inputFields={groupInputs} />
-                    {/* <span> {carsPreviewValues[0].label} </span> */}
                     <button
                         type="submit"
                         className={`button ${

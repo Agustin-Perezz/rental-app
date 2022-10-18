@@ -2,7 +2,7 @@ export interface InputModel {
     type: string;
     label?: string;
     name: string;
-    value: string;
+    value: string | unknown[];
     placeholder?: string;
     validations: Validation[];
     icon?: string;

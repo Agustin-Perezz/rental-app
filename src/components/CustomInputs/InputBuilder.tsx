@@ -6,6 +6,8 @@ interface Props {
 }
 
 export const InputBuilder: React.FC<Props> = ({ inputFields }) => {
+    // console.log(inputFields);
+
     return (
         <>
             {inputFields.map((data) => {
