@@ -14,6 +14,7 @@ interface Props {
 export const User: React.FC<Props> = ({ user }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
     return (
         <tr>
             <th>{user.id}</th>

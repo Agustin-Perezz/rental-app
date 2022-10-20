@@ -1,10 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReservationModel } from '../../../models/Reservation';
+import {
+    ReservationModel,
+    ReservationModelForm,
+} from '../../../models/Reservation';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface initialStateProps {
     reservations: ReservationModel[];
     isLoading: boolean;
+    reservation?: ReservationModel;
+    reservationForm?: ReservationModelForm;
 }
 
 const initialState: initialStateProps = {
@@ -17,6 +22,11 @@ export type UpdateReservationsProps = {
     newData: ReservationModel;
 };
 
+export type ReservationProps = {
+    reservation?: ReservationModel;
+    reservationForm?: ReservationModelForm;
+};
+
 export const reservationsSlice = createSlice({
     name: 'reservations',
     initialState,
@@ -26,6 +36,11 @@ export const reservationsSlice = createSlice({
         },
         setReservations: (state, action: PayloadAction<ReservationModel[]>) => {
             state.reservations = action.payload;
+            state.isLoading = false;
+        },
+        setReservation: (state, action: PayloadAction<ReservationProps>) => {
+            state.reservation = action.payload.reservation;
+            state.reservationForm = action.payload.reservationForm;
             state.isLoading = false;
         },
         setNewReservation: (state, action: PayloadAction<ReservationModel>) => {
@@ -48,8 +63,13 @@ export const reservationsSlice = createSlice({
             );
             state.reservations[indexOldRes] = { ...newData };
         },
+        cleanReservation: (state) => {
+            state.reservation = undefined;
+        },
     },
 });
+
+// agregar un cleanReservations que tenga info basica para el form y otro con la info completa para la view single
 
 export const {
     setReservations,
@@ -57,4 +77,6 @@ export const {
     setNewReservation,
     removeReservation,
     setNewDataReservation,
+    setReservation,
+    cleanReservation,
 } = reservationsSlice.actions;

@@ -2,6 +2,7 @@ import { ListCars, NewCar } from '../pages/Cars/Components';
 import {
     ListReservations,
     NewReservation,
+    SingleReservation,
 } from '../pages/reservations/Components';
 import { ListUsers, NewUser } from '../pages/Users/Components';
 
@@ -18,6 +19,14 @@ export const routes: RoutesProps[] = [
     {
         path: 'reservations/add',
         Component: NewReservation,
+    },
+    {
+        path: 'reservations/edit/:id_reservation',
+        Component: NewReservation,
+    },
+    {
+        path: 'reservations/view/:id_reservation',
+        Component: SingleReservation,
     },
     {
         path: 'cars/edit',

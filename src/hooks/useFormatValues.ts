@@ -1,14 +1,14 @@
 import React from 'react';
-import { CarModel } from '../models/Cars';
 import { InputModel, OptionsModel } from '../models/inputModel';
-import { UserModel } from '../models/Users';
+import { ReservationModel, ReservationModelForm } from '../models/Reservation';
 import { useAppSelector } from '../store/hooks';
 
 type Props = {
     groupInputs: InputModel[];
+    previusData?: ReservationModelForm;
 };
 
-export const useFormatValues = ({ groupInputs }: Props) => {
+export const useFormatValues = ({ groupInputs, previusData }: Props) => {
     const { cars } = useAppSelector((state) => state.cars);
     const { users } = useAppSelector((state) => state.users);
 
@@ -33,10 +33,11 @@ export const useFormatValues = ({ groupInputs }: Props) => {
                 label: str,
             };
         });
-
-        // groupInputs[2].value = carPreview[0].value;
+        // console.log(previusData);
+        if (previusData) {
+            groupInputs[0].value = previusData.date_start.substring(0, 10);
+        }
         groupInputs[2].options = carPreview;
-        // groupInputs[3].value = userPreview[0].value;
         groupInputs[3].options = userPreview;
     }, []);
 };

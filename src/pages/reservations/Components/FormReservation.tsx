@@ -4,24 +4,38 @@ import { InputBuilder } from '../../../components/CustomInputs';
 import { filterInputsData } from '../../../helpers';
 import { InputModel } from '../../../models/inputModel';
 import { useFormatValues } from '../../../hooks';
-import { useAppDispatch } from '../../../store/hooks';
-import { createReservation } from '../../../store/slices/Reservations';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import {
+    createReservation,
+    getReservation,
+} from '../../../store/slices/Reservations';
+import { useParams } from 'react-router-dom';
+import { cleanReservation } from '../../../store/slices/Reservations/reservationSlice';
 
 interface Props {
     groupInputs: InputModel[];
 }
 
 export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
-    useFormatValues({ groupInputs });
+    const { reservationForm } = useAppSelector((state) => state.reservations);
+
+    const disptach = useAppDispatch();
+    const { id_reservation } = useParams();
+    React.useEffect(() => {
+        id_reservation
+            ? disptach(getReservation(parseInt(id_reservation)))
+            : disptach(cleanReservation());
+    }, []);
+
+    useFormatValues({ groupInputs, previusData: reservationForm });
+
     const { initialFormValues, validationSchema } = filterInputsData({
         groupInputs,
     });
 
-    const disptach = useAppDispatch();
-
     return (
         <Formik
-            initialValues={initialFormValues}
+            initialValues={reservationForm || initialFormValues}
             onSubmit={(values) => {
                 // !id_car
                 //     ? dispatch(createCar({ ...values }))

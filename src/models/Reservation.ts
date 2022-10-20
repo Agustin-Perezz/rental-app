@@ -20,15 +20,11 @@ export interface ReservationModel {
 }
 
 export interface ReservationModelForm {
-    id: number;
     fk_user: number;
     fk_car: number;
-    total_price: number;
     payment_method: string;
     payment: string;
     state: string;
     date_start: string;
     date_end: string;
-    createdAt: string;
-    updatedAt: string;
 }

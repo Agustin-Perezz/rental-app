@@ -8,6 +8,7 @@ import {
     removeReservation,
     setNewDataReservation,
     setNewReservation,
+    setReservation,
     setReservations,
     startLoadingReservations,
     UpdateReservationsProps,
@@ -18,6 +19,25 @@ export const getReservations = () => {
         dispatch(startLoadingReservations());
         const { data } = await rentalApi.get<ReservationModel[]>('/rental');
         dispatch(setReservations(data));
+    };
+};
+
+export const getReservation = (id_res: number) => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(startLoadingReservations());
+        const { data } = await rentalApi.get<ReservationModel>(
+            `/rental/${id_res}`
+        );
+        const reservationForm: ReservationModelForm = {
+            fk_car: data.fk_car,
+            fk_user: data.fk_user,
+            date_end: data.date_end.substring(0, 10),
+            date_start: data.date_start.substring(0, 10),
+            payment: data.payment,
+            payment_method: data.payment_method,
+            state: data.state,
+        };
+        dispatch(setReservation({ reservation: data, reservationForm }));
     };
 };
 

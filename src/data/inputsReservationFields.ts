@@ -55,39 +55,18 @@ export const inputsReservationFields = [
             },
         ],
     },
-    // {
-    //     label: 'Test select',
-    //     value: '1',
-    //     name: 'test',
-    //     type: 'select',
-    //     options: [
-    //         {
-    //             value: 'yes',
-    //             label: 'Yes',
-    //         },
-    //         {
-    //             value: 'not',
-    //             label: 'Not',
-    //         },
-    //     ],
-    //     validations: [
-    //         {
-    //             type: 'required',
-    //         },
-    //     ],
-    // },
     {
         label: 'Payment the rent at the moment',
-        value: 'yes',
+        value: 'true',
         name: 'payment',
         type: 'select',
         options: [
             {
-                value: 'yes',
+                value: 'true',
                 label: 'Yes',
             },
             {
-                value: 'not',
+                value: 'false',
                 label: 'Not',
             },
         ],

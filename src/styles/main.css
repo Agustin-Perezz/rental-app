@@ -47,3 +47,12 @@ input:-webkit-autofill:active {
 .icon:hover {
     opacity: 0.6;
 }
+
+.separator {
+    border-bottom: 1px solid rgb(209, 209, 209);
+    width: 100%;
+}
+
+.black {
+    color: #363636 !important;
+}

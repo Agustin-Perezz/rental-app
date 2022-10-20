@@ -1,11 +1,15 @@
 import React from 'react';
 import { ReservationModel } from '../../../models/Reservation';
 import { useAppDispatch } from '../../../store/hooks';
-import { deleteReservationById } from '../../../store/slices/Reservations';
+import {
+    deleteReservationById,
+    getReservation,
+} from '../../../store/slices/Reservations';
 
 import trash from '../../../assets/images/trash.png';
 import update from '../../../assets/images/edit.png';
 import view from '../../../assets/images/find.png';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     reservation: ReservationModel;
@@ -13,6 +17,12 @@ interface Props {
 
 export const Reservation: React.FC<Props> = ({ reservation }) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    function handleClick() {
+        dispatch(getReservation(reservation.id));
+        navigate(`/reservations/view/${reservation.id}`);
+    }
 
     return (
         <tr style={{ verticalAlign: 'middle' }}>
@@ -47,14 +57,13 @@ export const Reservation: React.FC<Props> = ({ reservation }) => {
                     </span>
                     <span
                         className="icon"
-                        // onClick={() => navigate(`/users/edit/${user.id}`)}
+                        onClick={() =>
+                            navigate(`reservations/edit/${reservation.id}`)
+                        }
                     >
                         <img src={update} alt="update-icon" />
                     </span>
-                    <span
-                        className="icon"
-                        // onClick={() => navigate(`/users/edit/${user.id}`)}
-                    >
+                    <span className="icon" onClick={handleClick}>
                         <img src={view} alt="find-icon" />
                     </span>
                 </div>
