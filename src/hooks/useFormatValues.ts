@@ -33,10 +33,6 @@ export const useFormatValues = ({ groupInputs, previusData }: Props) => {
                 label: str,
             };
         });
-        // console.log(previusData);
-        if (previusData) {
-            groupInputs[0].value = previusData.date_start.substring(0, 10);
-        }
         groupInputs[2].options = carPreview;
         groupInputs[3].options = userPreview;
     }, []);

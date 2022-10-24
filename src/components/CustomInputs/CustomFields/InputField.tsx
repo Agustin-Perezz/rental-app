@@ -14,7 +14,7 @@ export const InputField: React.FC<Props> = ({ label, icon, ...props }) => {
 
     return (
         <div
-            className={`column  field ${
+            className={`column field ${
                 field.name === 'passengers' ? 'is-full' : 'is-half'
             }`}
         >

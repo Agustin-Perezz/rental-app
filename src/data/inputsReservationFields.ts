@@ -1,6 +1,6 @@
 export const inputsReservationFields = [
     {
-        type: 'date',
+        type: 'datetime-local',
         label: 'Date Start',
         name: 'date_start',
         value: '',
@@ -11,7 +11,7 @@ export const inputsReservationFields = [
         ],
     },
     {
-        type: 'date',
+        type: 'datetime-local',
         label: 'Date End',
         name: 'date_end',
         value: '',
@@ -62,11 +62,11 @@ export const inputsReservationFields = [
         type: 'select',
         options: [
             {
-                value: 'true',
+                value: 'Yes',
                 label: 'Yes',
             },
             {
-                value: 'false',
+                value: 'Not',
                 label: 'Not',
             },
         ],
@@ -83,15 +83,15 @@ export const inputsReservationFields = [
         type: 'select',
         options: [
             {
-                value: 'efective',
+                value: 'Efective',
                 label: 'Efective',
             },
             {
-                value: 'tarjet',
+                value: 'Tarjet',
                 label: 'Tarjet',
             },
             {
-                value: 'credit_card',
+                value: 'Credit_card',
                 label: 'Credit Card',
             },
         ],

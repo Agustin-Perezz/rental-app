@@ -14,7 +14,7 @@ export const InputBuilder: React.FC<Props> = ({ inputFields }) => {
                 if (
                     data.type === 'input' ||
                     data.type === 'email' ||
-                    data.type === 'date'
+                    data.type === 'datetime-local'
                 ) {
                     return (
                         <InputField

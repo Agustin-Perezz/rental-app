@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
     createReservation,
     getReservation,
+    updateReservation,
 } from '../../../store/slices/Reservations';
 import { useParams } from 'react-router-dom';
 import { cleanReservation } from '../../../store/slices/Reservations/reservationSlice';
@@ -25,7 +26,7 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
         id_reservation
             ? disptach(getReservation(parseInt(id_reservation)))
             : disptach(cleanReservation());
-    }, []);
+    }, [id_reservation]);
 
     useFormatValues({ groupInputs, previusData: reservationForm });
 
@@ -37,9 +38,14 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
         <Formik
             initialValues={reservationForm || initialFormValues}
             onSubmit={(values) => {
-                // !id_car
-                //     ? dispatch(createCar({ ...values }))
-                disptach(createReservation(values));
+                id_reservation
+                    ? disptach(
+                          updateReservation({
+                              id_reservation: parseInt(id_reservation),
+                              newData: values,
+                          })
+                      )
+                    : disptach(createReservation(values));
             }}
             validationSchema={validationSchema}
             enableReinitialize
@@ -50,10 +56,10 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
                     <button
                         type="submit"
                         className={`button ${
-                            true ? 'is-success' : 'is-info'
+                            !reservationForm ? 'is-success' : 'is-info'
                         } is-fullwidth mx-auto`}
                     >
-                        Save
+                        {reservationForm ? 'Update' : 'Save'}
                     </button>
                 </Form>
             )}

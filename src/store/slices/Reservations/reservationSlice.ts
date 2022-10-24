@@ -59,17 +59,16 @@ export const reservationsSlice = createSlice({
             }: PayloadAction<UpdateReservationsProps>
         ) => {
             const indexOldRes = state.reservations.findIndex(
-                (user) => user.id === id_reservation
+                (res) => res.id === id_reservation
             );
             state.reservations[indexOldRes] = { ...newData };
         },
         cleanReservation: (state) => {
             state.reservation = undefined;
+            state.reservationForm = undefined;
         },
     },
 });
-
-// agregar un cleanReservations que tenga info basica para el form y otro con la info completa para la view single
 
 export const {
     setReservations,

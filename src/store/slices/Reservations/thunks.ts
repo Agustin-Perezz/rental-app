@@ -14,6 +14,11 @@ import {
     UpdateReservationsProps,
 } from './reservationSlice';
 
+export type UpdateReservationsForm = {
+    id_reservation: number;
+    newData: ReservationModelForm;
+};
+
 export const getReservations = () => {
     return async (dispatch: AppDispatch) => {
         dispatch(startLoadingReservations());
@@ -31,12 +36,13 @@ export const getReservation = (id_res: number) => {
         const reservationForm: ReservationModelForm = {
             fk_car: data.fk_car,
             fk_user: data.fk_user,
-            date_end: data.date_end.substring(0, 10),
-            date_start: data.date_start.substring(0, 10),
+            date_end: data.date_end.substring(0, 16),
+            date_start: data.date_start.substring(0, 16),
             payment: data.payment,
             payment_method: data.payment_method,
             state: data.state,
         };
+
         dispatch(setReservation({ reservation: data, reservationForm }));
     };
 };
@@ -61,12 +67,15 @@ export const deleteReservationById = (id: number) => {
 export const updateReservation = ({
     id_reservation,
     newData,
-}: UpdateReservationsProps) => {
+}: UpdateReservationsForm) => {
     return async (dispatch: AppDispatch) => {
-        const { data } = await rentalApi.put<ReservationModel>('/rental/', {
-            ...newData,
-            state: newData.payment,
-        });
+        const { data } = await rentalApi.put<ReservationModel>(
+            `/rental/${id_reservation}`,
+            {
+                ...newData,
+                state: newData.payment,
+            }
+        );
         dispatch(setNewDataReservation({ id_reservation, newData: data }));
     };
 };
