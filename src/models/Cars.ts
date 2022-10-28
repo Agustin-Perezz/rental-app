@@ -9,7 +9,7 @@ export interface CarModel {
     air_conditioning: string;
     passengers: string;
     type_tranmision: string;
-    fk_user: number;
+    fk_user?: number;
 }
 
 export interface CarFormModel {

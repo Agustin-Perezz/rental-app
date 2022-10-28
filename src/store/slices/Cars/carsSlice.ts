@@ -13,6 +13,11 @@ type UpdateCarProps = {
     idCar: number;
 };
 
+export type OwnerCarProps = {
+    idCar: number;
+    idRental?: number;
+};
+
 const initialState: CarsProps = {
     cars: [],
     isLoading: false,
@@ -51,6 +56,16 @@ export const carsSlice = createSlice({
         cleanSearchedCar: (state) => {
             state.searchedCar = undefined;
         },
+        setOwnerCar: (
+            state,
+            { payload: { idCar, idRental } }: PayloadAction<OwnerCarProps>
+        ) => {
+            const indexCar = state.cars.findIndex((car) => car.id == idCar);
+            state.cars[indexCar] = {
+                ...state.cars[indexCar],
+                fk_user: idRental,
+            };
+        },
     },
 });
 
@@ -62,4 +77,5 @@ export const {
     setSearchedCar,
     cleanSearchedCar,
     setNewInformationCar,
+    setOwnerCar,
 } = carsSlice.actions;

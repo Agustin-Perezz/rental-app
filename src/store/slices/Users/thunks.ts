@@ -1,14 +1,16 @@
+import dateFormat from 'dateformat';
 import { AppDispatch } from '../../store';
 import { rentalApi } from '../../../api/Cars';
 import {
     deleteUserById,
+    setCarsFromUser,
     setNewInformationUser,
     setNewUser,
     setSearchedUser,
     setUsers,
     startLoadingUsers,
 } from './userSlice';
-import { UserModel } from '../../../models/Users';
+import { UserModel, UserWhithCars } from '../../../models/Users';
 
 export const getUsers = () => {
     return async (dispatch: AppDispatch) => {
@@ -48,5 +50,23 @@ export const updateUser = (dataUser: UserModel, idUser: string) => {
         });
         const id_user = parseInt(idUser);
         dispatch(setNewInformationUser({ id_user, ...data }));
+    };
+};
+
+export const findCarsFromUser = (idUser: number) => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(startLoadingUsers());
+        const { data } = await rentalApi.get<UserWhithCars>(
+            `/users/${idUser}/cars`
+        );
+        data.createdAt = dateFormat(
+            data.createdAt,
+            'dddd, mmmm dS, yyyy, h:MM:ss TT'
+        );
+        data.updatedAt = dateFormat(
+            data.updatedAt,
+            'dddd, mmmm dS, yyyy, h:MM:ss TT'
+        );
+        dispatch(setCarsFromUser(data));
     };
 };

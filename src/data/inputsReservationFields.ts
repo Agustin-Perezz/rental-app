@@ -23,13 +23,13 @@ export const inputsReservationFields = [
     },
     {
         label: 'List Cars:',
-        value: '1',
+        value: 'not-cars',
         name: 'fk_car',
         type: 'select',
         options: [
             {
-                value: 'empity-value',
-                label: 'simple-test',
+                value: '',
+                label: 'No cars in stock',
             },
         ],
         validations: [

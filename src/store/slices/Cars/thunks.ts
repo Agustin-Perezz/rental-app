@@ -1,14 +1,20 @@
 import {
     deleteCarById,
+    OwnerCarProps,
     setCars,
     setNewCar,
     setNewInformationCar,
+    setOwnerCar,
     setSearchedCar,
     startLoadingCars,
 } from './carsSlice';
 import { AppDispatch } from '../../store';
 import { rentalApi } from '../../../api/Cars';
 import { CarFormModel, CarModel } from '../../../models/Cars';
+
+type CarUpdateProps = {
+    dataCar: CarModel | Record<string, undefined>;
+};
 
 export const getCars = () => {
     return async (dispatch: AppDispatch) => {
@@ -41,12 +47,21 @@ export const findById = (idCar: string) => {
     };
 };
 
-export const updateCar = (dataCar: CarModel, id_car: string) => {
+export const updateCar = (dataCar: CarUpdateProps, id_car: string) => {
     return async (dispatch: AppDispatch) => {
         const { data } = await rentalApi.put(`/cars/${id_car}`, {
             ...dataCar,
         });
         const idCar = parseInt(id_car);
         dispatch(setNewInformationCar({ newData: data, idCar }));
+    };
+};
+
+export const updateOwnerCar = ({ idCar, idRental }: OwnerCarProps) => {
+    return async (dispatch: AppDispatch) => {
+        await rentalApi.put(`/cars/${idCar}`, {
+            fk_user: idRental ? idRental : null,
+        });
+        dispatch(setOwnerCar({ idCar, idRental }));
     };
 };

@@ -106,7 +106,7 @@ export const inputUsersFields = [
         ],
     },
     {
-        type: 'input',
+        type: 'date',
         label: 'Date of born',
         name: 'date_of_born',
         value: '',

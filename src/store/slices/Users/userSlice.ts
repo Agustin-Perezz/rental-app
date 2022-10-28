@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { UserModel, UserModelForm } from '../../../models/Users';
+import { UserModel, UserWhithCars } from '../../../models/Users';
 
 interface UsersProps {
     isLoading: boolean;
     users: UserModel[];
     searchedUser?: UserModel;
+    user?: UserWhithCars;
 }
 
 const initialState: UsersProps = {
@@ -34,7 +35,7 @@ export const usersSlice = createSlice({
         },
         deleteUserById: (state, { payload }: PayloadAction<number>) => {
             const filteredUsers = state.users.filter(
-                (user) => user.id != payload
+                (user) => user.id !== payload
             );
             state.users = filteredUsers;
         },
@@ -53,6 +54,10 @@ export const usersSlice = createSlice({
         cleanSearchedUser: (state) => {
             delete state.searchedUser;
         },
+        setCarsFromUser: (state, action: PayloadAction<UserWhithCars>) => {
+            state.user = action.payload;
+            state.isLoading = false;
+        },
     },
 });
 
@@ -64,4 +69,5 @@ export const {
     setNewInformationUser,
     setNewUser,
     setSearchedUser,
+    setCarsFromUser,
 } = usersSlice.actions;

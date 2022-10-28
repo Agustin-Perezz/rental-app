@@ -6,15 +6,14 @@ interface Props {
 }
 
 export const InputBuilder: React.FC<Props> = ({ inputFields }) => {
-    // console.log(inputFields);
-
     return (
         <>
             {inputFields.map((data) => {
                 if (
                     data.type === 'input' ||
                     data.type === 'email' ||
-                    data.type === 'datetime-local'
+                    data.type === 'datetime-local' ||
+                    data.type === 'date'
                 ) {
                     return (
                         <InputField

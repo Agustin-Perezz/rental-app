@@ -10,6 +10,7 @@ import trash from '../../../assets/images/trash.png';
 import update from '../../../assets/images/edit.png';
 import view from '../../../assets/images/find.png';
 import { useNavigate } from 'react-router-dom';
+import { updateOwnerCar } from '../../../store/slices/Cars';
 
 interface Props {
     reservation: ReservationModel;
@@ -24,11 +25,17 @@ export const Reservation: React.FC<Props> = ({ reservation }) => {
         navigate(`/reservations/view/${reservation.id}`);
     }
 
+    function handleRemove(idRental: number, idCar: number) {
+        // console.log('go-remove');
+        dispatch(deleteReservationById(idRental));
+        dispatch(updateOwnerCar({ idCar }));
+    }
+
     return (
         <tr style={{ verticalAlign: 'middle' }}>
             <th>{reservation.id}</th>
-            <td>{reservation.date_start_format}</td>
-            <td>{reservation.date_end_format}</td>
+            <td>{reservation.date_start}</td>
+            <td>{reservation.date_end}</td>
             <td>{reservation.unit_price}</td>
             <td>{reservation.total_price}</td>
             <td>{reservation.payment_method}</td>
@@ -51,7 +58,7 @@ export const Reservation: React.FC<Props> = ({ reservation }) => {
                             className="test"
                             src={trash}
                             onClick={() =>
-                                dispatch(deleteReservationById(reservation.id))
+                                handleRemove(reservation.id, reservation.fk_car)
                             }
                         ></img>
                     </span>

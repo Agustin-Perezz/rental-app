@@ -1,16 +1,18 @@
 import React from 'react';
+import { useMatch, useParams } from 'react-router-dom';
 import { InputModel, OptionsModel } from '../models/inputModel';
-import { ReservationModel, ReservationModelForm } from '../models/Reservation';
 import { useAppSelector } from '../store/hooks';
 
 type Props = {
     groupInputs: InputModel[];
-    previusData?: ReservationModelForm;
+    initialFormValues: any;
 };
 
-export const useFormatValues = ({ groupInputs, previusData }: Props) => {
-    const { cars } = useAppSelector((state) => state.cars);
+export const useFormatValues = ({ groupInputs, initialFormValues }: Props) => {
+    let { cars } = useAppSelector((state) => state.cars);
     const { users } = useAppSelector((state) => state.users);
+
+    const match = useMatch('/reservations/add');
 
     React.useEffect(() => {
         const userPreview: OptionsModel[] = users.map((user) => {
@@ -21,6 +23,12 @@ export const useFormatValues = ({ groupInputs, previusData }: Props) => {
                 label: str,
             };
         });
+
+        if (match) {
+            cars = cars.filter(
+                (c) => c.fk_user === undefined || c.fk_user === null
+            );
+        }
         const carPreview: OptionsModel[] = cars.map((car) => {
             let str: string = '';
             str += `${car.brand} ${car.year} - `;
@@ -33,7 +41,13 @@ export const useFormatValues = ({ groupInputs, previusData }: Props) => {
                 label: str,
             };
         });
-        groupInputs[2].options = carPreview;
+
+        if (carPreview.length > 0) {
+            groupInputs[2].options = carPreview;
+            initialFormValues.fk_car = carPreview[0].value;
+        } else {
+            initialFormValues.fK_car = 'not-cars';
+        }
         groupInputs[3].options = userPreview;
     }, []);
 };

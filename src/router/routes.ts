@@ -4,7 +4,7 @@ import {
     NewReservation,
     SingleReservation,
 } from '../pages/reservations/Components';
-import { ListUsers, NewUser } from '../pages/Users/Components';
+import { ListUsers, NewUser, SingleUser } from '../pages/Users/Components';
 
 export interface RoutesProps {
     path: string;
@@ -51,5 +51,9 @@ export const routes: RoutesProps[] = [
     {
         path: 'users/add',
         Component: NewUser,
+    },
+    {
+        path: 'users/:id_user/cars',
+        Component: SingleUser,
     },
 ];

@@ -1,3 +1,5 @@
+import { CarModel } from './Cars';
+
 export interface UserModel {
     id: number;
     name: string;
@@ -21,4 +23,10 @@ export interface UserModelForm {
     phone: string;
     email: string;
     date_of_born: string;
+}
+
+export interface UserWhithCars extends UserModel {
+    createdAt: string;
+    updatedAt: string;
+    cars: CarModel[];
 }

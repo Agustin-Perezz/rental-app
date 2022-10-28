@@ -17,7 +17,6 @@ export const MySelect = ({ label, options, ...props }: Props) => {
             <h5 className="subtitle is-5 mb-0 pt-1 pr-2">{label}</h5>
             <div className="select is-rounded">
                 <Field name={props.name} as="select">
-                    {/* component="select" */}
                     {options.map(({ value, label }) => (
                         <option key={value} value={value}>
                             {label}

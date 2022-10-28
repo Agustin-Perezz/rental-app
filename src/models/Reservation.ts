@@ -13,8 +13,6 @@ export interface ReservationModel {
     email: string;
     date_start: string;
     date_end: string;
-    date_start_format: string;
-    date_end_format: string;
     updatedAt: string;
     createdAt: string;
 }

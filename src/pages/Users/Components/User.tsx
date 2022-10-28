@@ -1,11 +1,12 @@
 import React from 'react';
 import { UserModel } from '../../../models/Users';
 import { useAppDispatch } from '../../../store/hooks';
-import { deleteUser } from '../../../store/slices/Users';
+import { deleteUser, findCarsFromUser } from '../../../store/slices/Users';
 import { useNavigate } from 'react-router-dom';
 
 import updateIcon from '../../../assets/images/edit.png';
 import trash from '../../../assets/images/trash.png';
+import view from '../../../assets/images/find.png';
 
 interface Props {
     user: UserModel;
@@ -14,6 +15,11 @@ interface Props {
 export const User: React.FC<Props> = ({ user }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    function handleNavigate(userId: number) {
+        dispatch(findCarsFromUser(userId));
+        navigate(`/users/${userId}/cars`);
+    }
 
     return (
         <tr>
@@ -40,6 +46,12 @@ export const User: React.FC<Props> = ({ user }) => {
                         onClick={() => navigate(`/users/edit/${user.id}`)}
                     >
                         <img src={updateIcon} alt="update-icon" />
+                    </span>
+                    <span
+                        className="icon"
+                        onClick={() => handleNavigate(user.id)}
+                    >
+                        <img src={view} alt="find-icon" />
                     </span>
                 </div>
             </td>

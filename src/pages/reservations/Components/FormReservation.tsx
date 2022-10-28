@@ -28,11 +28,11 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
             : disptach(cleanReservation());
     }, [id_reservation]);
 
-    useFormatValues({ groupInputs, previusData: reservationForm });
-
     const { initialFormValues, validationSchema } = filterInputsData({
         groupInputs,
     });
+
+    useFormatValues({ groupInputs, initialFormValues });
 
     return (
         <Formik
@@ -50,16 +50,25 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
             validationSchema={validationSchema}
             enableReinitialize
         >
-            {() => (
+            {({ isValid, dirty, values }) => (
                 <Form className="is-flex is-flex-wrap-wrap">
                     <InputBuilder inputFields={groupInputs} />
                     <button
                         type="submit"
+                        disabled={!isValid || !dirty}
                         className={`button ${
-                            !reservationForm ? 'is-success' : 'is-info'
+                            groupInputs[2].value === 'not-cars'
+                                ? 'is-warning'
+                                : !reservationForm
+                                ? 'is-success'
+                                : 'is-info'
                         } is-fullwidth mx-auto`}
                     >
-                        {reservationForm ? 'Update' : 'Save'}
+                        {groupInputs[2].value === 'not-cars'
+                            ? 'No cars in stock'
+                            : reservationForm
+                            ? 'Update'
+                            : 'Save'}
                     </button>
                 </Form>
             )}
