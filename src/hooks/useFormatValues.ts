@@ -1,6 +1,7 @@
 import React from 'react';
-import { useMatch, useParams } from 'react-router-dom';
-import { InputModel, OptionsModel } from '../models/inputModel';
+import { CarModel } from '../models/Cars';
+import { InputModel } from '../models/inputModel';
+import { carMapper, userMapper } from '../pages/reservations/Mappers';
 import { useAppSelector } from '../store/hooks';
 
 type Props = {
@@ -9,45 +10,37 @@ type Props = {
 };
 
 export const useFormatValues = ({ groupInputs, initialFormValues }: Props) => {
-    let { cars } = useAppSelector((state) => state.cars);
+    const { cars } = useAppSelector((state) => state.cars);
     const { users } = useAppSelector((state) => state.users);
+    const { reservationForm } = useAppSelector((state) => state.reservations);
 
-    const match = useMatch('/reservations/add');
+    const [alternativeCars, setAlternativeCars] = React.useState<
+        CarModel[] | undefined
+    >();
 
     React.useEffect(() => {
-        const userPreview: OptionsModel[] = users.map((user) => {
-            let str: string = '';
-            str += `Name: ${user.name} - Email: ${user.email} - Country: ${user.nationality}`;
-            return {
-                value: user.id.toString(),
-                label: str,
-            };
-        });
-
-        if (match) {
-            cars = cars.filter(
-                (c) => c.fk_user === undefined || c.fk_user === null
-            );
+        if (reservationForm) {
+            const car = cars.findIndex((c) => c.id == reservationForm.fk_car);
+            const { fk_user, ...filteredCar } = cars[car];
+            setAlternativeCars([...cars, { ...filteredCar }]);
+        } else {
+            setAlternativeCars(undefined);
         }
-        const carPreview: OptionsModel[] = cars.map((car) => {
-            let str: string = '';
-            str += `${car.brand} ${car.year} - `;
-            str += `Model: ${car.model} - `;
-            str += `Price/Day: ${car.unit_price} - `;
-            str += `Transmision: ${car.type_tranmision} - `;
-            str += `Color: ${car.color}`;
-            return {
-                value: car.id.toString(),
-                label: str,
-            };
-        });
+    }, [reservationForm]);
 
+    React.useEffect(() => {
+        const userPreview = userMapper(users);
+        groupInputs[3].options = userPreview;
+
+        const carPreview = carMapper(alternativeCars || cars);
         if (carPreview.length > 0) {
             groupInputs[2].options = carPreview;
             initialFormValues.fk_car = carPreview[0].value;
         } else {
-            initialFormValues.fK_car = 'not-cars';
+            groupInputs[2].options = [
+                { value: 'not-cars', label: 'Not cars in stock' },
+            ];
+            initialFormValues.fk_car = 'not-cars';
         }
-        groupInputs[3].options = userPreview;
-    }, []);
+    }, [alternativeCars, []]);
 };

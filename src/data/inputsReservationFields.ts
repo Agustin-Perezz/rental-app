@@ -23,7 +23,7 @@ export const inputsReservationFields = [
     },
     {
         label: 'List Cars:',
-        value: 'not-cars',
+        value: '',
         name: 'fk_car',
         type: 'select',
         options: [

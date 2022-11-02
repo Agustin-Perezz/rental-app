@@ -46,6 +46,7 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
                           })
                       )
                     : disptach(createReservation(values));
+                id_reservation && cleanReservation();
             }}
             validationSchema={validationSchema}
             enableReinitialize
@@ -57,19 +58,20 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
                         type="submit"
                         disabled={!isValid || !dirty}
                         className={`button ${
-                            groupInputs[2].value === 'not-cars'
+                            initialFormValues.fk_car === 'not-cars'
                                 ? 'is-warning'
-                                : !reservationForm
+                                : !id_reservation
                                 ? 'is-success'
                                 : 'is-info'
                         } is-fullwidth mx-auto`}
                     >
-                        {groupInputs[2].value === 'not-cars'
+                        {initialFormValues.fk_car === 'not-cars'
                             ? 'No cars in stock'
-                            : reservationForm
+                            : id_reservation
                             ? 'Update'
                             : 'Save'}
                     </button>
+                    {JSON.stringify(values, null, '')}
                 </Form>
             )}
         </Formik>
