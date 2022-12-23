@@ -10,8 +10,9 @@ import {
     getReservation,
     updateReservation,
 } from '../../../store/slices/Reservations';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { cleanReservation } from '../../../store/slices/Reservations/reservationSlice';
+import { saveAlert } from '../../../components/UI-Alerts';
 
 interface Props {
     groupInputs: InputModel[];
@@ -19,6 +20,8 @@ interface Props {
 
 export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
     const { reservationForm } = useAppSelector((state) => state.reservations);
+
+    const navigate = useNavigate();
 
     const disptach = useAppDispatch();
     const { id_reservation } = useParams();
@@ -38,15 +41,20 @@ export const FormReservation: React.FC<Props> = ({ groupInputs }) => {
         <Formik
             initialValues={reservationForm || initialFormValues}
             onSubmit={(values) => {
-                id_reservation
-                    ? disptach(
-                          updateReservation({
-                              id_reservation: parseInt(id_reservation),
-                              newData: values,
-                          })
-                      )
-                    : disptach(createReservation(values));
+                if (id_reservation) {
+                    disptach(
+                        updateReservation({
+                            id_reservation: parseInt(id_reservation),
+                            newData: values,
+                        })
+                    );
+                    saveAlert('The reservation has been updated.');
+                } else {
+                    disptach(createReservation(values));
+                    saveAlert('The reservation has been saved.');
+                }
                 id_reservation && cleanReservation();
+                navigate('/');
             }}
             validationSchema={validationSchema}
             enableReinitialize

@@ -1,7 +1,8 @@
 import { Form, Formik } from 'formik';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { InputBuilder } from '../../../components/CustomInputs/InputBuilder';
+import { saveAlert } from '../../../components/UI-Alerts';
 import { filterInputsData } from '../../../helpers';
 import { InputModel } from '../../../models/inputModel';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -18,6 +19,7 @@ export const FormCar: React.FC<Props> = ({ groupInputs }) => {
     });
 
     const { searchedCar } = useAppSelector((state) => state.cars);
+    const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
     const { id_car } = useParams();
@@ -29,9 +31,14 @@ export const FormCar: React.FC<Props> = ({ groupInputs }) => {
         <Formik
             initialValues={searchedCar || initialFormValues}
             onSubmit={(values) => {
-                !id_car
-                    ? dispatch(createCar({ ...values }))
-                    : dispatch(updateCar(values, id_car));
+                if (!id_car) {
+                    dispatch(createCar({ ...values }));
+                    saveAlert('The car has been saved.');
+                } else {
+                    dispatch(updateCar(values, id_car));
+                    saveAlert('The car has been updated.');
+                }
+                navigate('/cars/edit');
             }}
             validationSchema={validationSchema}
             enableReinitialize

@@ -9,8 +9,9 @@ import {
     findUserById,
     updateUser,
 } from '../../../store/slices/Users';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { cleanSearchedUser } from '../../../store/slices/Users/userSlice';
+import { saveAlert } from '../../../components/UI-Alerts';
 
 interface Props {
     groupInputs: InputModel[];
@@ -22,6 +23,7 @@ export const FormUser: React.FC<Props> = ({ groupInputs }) => {
     });
 
     const { searchedUser } = useAppSelector((state) => state.users);
+    const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
     const { id_user } = useParams();
@@ -35,9 +37,14 @@ export const FormUser: React.FC<Props> = ({ groupInputs }) => {
         <Formik
             initialValues={searchedUser || initialFormValues}
             onSubmit={(values) => {
-                !searchedUser
-                    ? dispatch(createUser(values))
-                    : dispatch(updateUser(values, id_user!));
+                if (!searchedUser) {
+                    dispatch(createUser(values));
+                    saveAlert('The user has been saved.');
+                } else {
+                    dispatch(updateUser(values, id_user!));
+                    saveAlert('The user has been updated.');
+                }
+                navigate('/users/edit');
             }}
             validationSchema={validationSchema}
             enableReinitialize

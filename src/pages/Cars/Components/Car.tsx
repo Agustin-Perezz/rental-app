@@ -1,11 +1,11 @@
 import { CarModel } from '../../../models/Cars';
-
 import { useAppDispatch } from '../../../store/hooks';
 import { deleteCar } from '../../../store/slices/Cars';
 import { useNavigate } from 'react-router-dom';
 
 import edit from '../../../assets/images/edit.png';
 import trash from '../../../assets/images/trash.png';
+import Swal from 'sweetalert2';
 
 interface Props {
     car: CarModel;
@@ -14,6 +14,24 @@ interface Props {
 export const Car: React.FC<Props> = ({ car }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    function onDelete(carId: number) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Saved!', '', 'success');
+                dispatch(deleteCar(carId));
+            }
+        });
+    }
+
     return (
         <tr>
             <th>{car.id}</th>
@@ -40,7 +58,7 @@ export const Car: React.FC<Props> = ({ car }) => {
                         <img
                             src={trash}
                             alt="delet"
-                            onClick={() => dispatch(deleteCar(car.id))}
+                            onClick={() => onDelete(car.id)}
                         />
                     </span>
                 </div>

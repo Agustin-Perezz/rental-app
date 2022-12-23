@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import updateIcon from '../../../assets/images/edit.png';
 import trash from '../../../assets/images/trash.png';
 import view from '../../../assets/images/find.png';
+import Swal from 'sweetalert2';
 
 interface Props {
     user: UserModel;
@@ -19,6 +20,23 @@ export const User: React.FC<Props> = ({ user }) => {
     function handleNavigate(userId: number) {
         dispatch(findCarsFromUser(userId));
         navigate(`/users/${userId}/cars`);
+    }
+
+    function onDelete(userId: number) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Saved!', '', 'success');
+                dispatch(deleteUser(userId));
+            }
+        });
     }
 
     return (
@@ -38,7 +56,7 @@ export const User: React.FC<Props> = ({ user }) => {
                     <span className="icon">
                         <img
                             src={trash}
-                            onClick={() => dispatch(deleteUser(user.id))}
+                            onClick={() => onDelete(user.id)}
                         ></img>
                     </span>
                     <span

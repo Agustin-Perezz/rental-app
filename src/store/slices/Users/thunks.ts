@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import dateFormat from 'dateformat';
 import { AppDispatch } from '../../store';
 import { rentalApi } from '../../../api/Cars';
@@ -11,7 +12,6 @@ import {
     startLoadingUsers,
 } from './userSlice';
 import { UserModel, UserWhithCars } from '../../../models/Users';
-
 export const getUsers = () => {
     return async (dispatch: AppDispatch) => {
         dispatch(startLoadingUsers());
@@ -50,6 +50,13 @@ export const updateUser = (dataUser: UserModel, idUser: string) => {
         });
         const id_user = parseInt(idUser);
         dispatch(setNewInformationUser({ id_user, ...data }));
+        Swal.fire({
+            position: 'bottom-end',
+            icon: 'success',
+            title: 'The user has been updated',
+            showConfirmButton: false,
+            timer: 1200,
+        });
     };
 };
 
